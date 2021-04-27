@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cary.codebase.join.mapper.RsRoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.cary.codebase.join.entity.RsRole">
+        <result column="id" property="id" />
+        <result column="role_name" property="roleName" />
+        <result column="remark" property="remark" />
+        <result column="pid" property="pid" />
+        <result column="create_by" property="createBy" />
+        <result column="create_date" property="createDate" />
+        <result column="last_update_by" property="lastUpdateBy" />
+        <result column="last_update_date" property="lastUpdateDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        role_name, remark, pid, create_by, create_date, last_update_by, last_update_date
+    </sql>
+
+    <select id="getRoleMenu" resultMap="baseMap">
+        SELECT
+            u.*,
+            r.*,
+            ur.*
+        FROM
+            rs_role r,
+            rs_menu u,
+            rs_role_menu ur
+        WHERE
+            r.id = ur.role_id
+          AND u.id = ur.menu_id
+    </select>
+    <resultMap type="cn.cary.codebase.join.entity.RsRole" id="baseMap">
+        <id property="id" column="role_id"/>
+        <result column="role_name" property="roleName" />
+        <result column="remark" property="remark" />
+        <result column="pid" property="pid" />
+        <collection property="rsMenus" ofType="cn.cary.codebase.join.entity.RsMenu">
+            <id property="id" column="menu_id"/>
+            <result column="parent_id" property="parentId" />
+            <result column="menu_name" property="menuName" />
+            <result column="url" property="url" />
+            <result column="icon" property="icon" />
+            <result column="perms" property="perms" />
+            <result column="visible" property="visible" />
+            <result column="menu_type" property="menuType" />
+            <result column="order_num" property="orderNum" />
+        </collection>
+    </resultMap>
+
+</mapper>

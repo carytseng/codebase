@@ -1,0 +1,69 @@
+{
+  "conditions": [
+    {
+      "dateTypeCode": "",
+      "fieldName": "pat_name",
+      "endValue": "",
+      "fieldDesc": "患者姓名",
+      "conditionLogic": "",
+      "tableDesc": "患者基本信息",
+      "tableName": "pat_emp_info",
+      "valueOperator": "text",
+      "startValue": "吕顽歹",
+      "hash": 1619407610048
+    },
+    {
+      "dateTypeCode": "",
+      "fieldName": "age_years",
+      "endValue": "80",
+      "fieldDesc": "年龄(岁)",
+      "conditionLogic": "must",
+      "tableDesc": "患者基本信息",
+      "tableName": "pat_emp_info",
+      "valueOperator": "range",
+      "startValue": "70",
+      "hash": 1619407639028
+    },
+    {
+      "dateTypeCode": "",
+      "fieldName": "discharge_diag_name",
+      "endValue": "",
+      "fieldDesc": "出院诊断名称",
+      "conditionLogic": "must",
+      "tableDesc": "出院登记记录",
+      "tableName": "inhosp_outcome_record",
+      "valueOperator": "text",
+      "startValue": "慢性白血病",
+      "hash": 1619418463790
+    },
+    {
+      "conditionLogic": "must",
+      "children": [
+        {
+          "dateTypeCode": "",
+          "fieldName": "test_item_name",
+          "endValue": "",
+          "fieldDesc": "检验项目名称",
+          "conditionLogic": "",
+          "tableDesc": "检验记录",
+          "tableName": "clinic_test_record",
+          "valueOperator": "text",
+          "startValue": "糖类抗原242",
+          "hash": 1619418868978
+        }
+      ]
+    },
+    {
+      "dateTypeCode": "",
+      "fieldName": "sex_code_name",
+      "endValue": "",
+      "fieldDesc": "性别代码",
+      "conditionLogic": "must",
+      "tableDesc": "患者基本信息",
+      "tableName": "pat_emp_info",
+      "valueOperator": "text",
+      "startValue": "男",
+      "hash": 1619419392928
+    }
+  ]
+}

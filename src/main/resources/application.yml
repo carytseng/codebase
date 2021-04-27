@@ -1,0 +1,118 @@
+server:
+  port: 8080
+spring:
+  application:
+#    @符号从pom文件读取白娘
+    name: @artifactId@
+#    多数据源配置实例
+  datasource:
+    druid:
+      master:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/data_collection?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf-8&
+        username: root
+        password: 12345678
+        # 连接池的配置信息
+        initial-size: 5
+        min-idle: 5
+        maxActive: 20
+        maxWait: 60000 # 配置获取连接等待超时的时间
+        timeBetweenEvictionRunsMillis: 60000 # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        minEvictableIdleTimeMillis: 300000 # 配置一个连接在池中最小生存的时间，单位是毫秒
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true  # 打开PSCache，并且指定每个连接上PSCache的大小
+        maxPoolPreparedStatementPerConnectionSize: 20
+      slave:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://10.15.8.66:3306/local_datasource?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf-8&
+        username: dpaas
+        password: NMS@Unicom#Test4Mysql
+        # 连接池的配置信息
+        initial-size: 5
+        min-idle: 5
+        maxActive: 20
+        maxWait: 60000 # 配置获取连接等待超时的时间
+        timeBetweenEvictionRunsMillis: 60000 # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        minEvictableIdleTimeMillis: 300000 # 配置一个连接在池中最小生存的时间，单位是毫秒
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true  # 打开PSCache，并且指定每个连接上PSCache的大小
+        maxPoolPreparedStatementPerConnectionSize: 20
+      presto:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.facebook.presto.jdbc.PrestoDriver
+        url: jdbc:presto://10.15.8.82:8181
+        username: admin
+        password:
+        # 连接池的配置信息
+        initial-size: 5
+        min-idle: 5
+        maxActive: 20
+        maxWait: 60000 # 配置获取连接等待超时的时间
+        timeBetweenEvictionRunsMillis: 60000 # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        minEvictableIdleTimeMillis: 300000 # 配置一个连接在池中最小生存的时间，单位是毫秒
+        removeAbandoned: true
+        removeAbandonedTimeout: 180
+        #        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: false
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true  # 打开PSCache，并且指定每个连接上PSCache的大小
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filter: stat,wall,slf4j
+          # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+        #connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+        ### 监控配置
+        # 配置DruidStatFilter
+        web-stat-filter:
+          enabled: true
+          url-pattern: "/*"
+          exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+        stat-view-servlet:
+          enabled: true
+          url-pattern: "/druid/*"
+          # IP白名单(没有配置或者为空，则允许所有访问)
+          allow: 127.0.0.1
+          # IP黑名单 (白名单与黑名单同时存在时，黑名单优先)
+          deny: ""
+          # 是否开启监控页面页面上的重置功能
+          reset-enable: true
+          # 用户名
+          login-username: admin
+          # 密码
+          login-password: admin123
+
+logging:
+  file:
+    name: logs/${spring.application.name}/debug.log
+
+opencloud:
+  swagger2:
+    enabled: true
+    description: 代码快速开发库
+    title: 代码快速开发库
+
+mybatis-plus:
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: cn.cary.codebase.generator.dto,cn.cary.codebase.**.entity
+  mapper-locations: classpath*:mapper/**/*.xml
+
+mybatis:
+  configuration:
+    default-enum-type-handler: com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler
+
+
+
+
+
+
+
+
+
