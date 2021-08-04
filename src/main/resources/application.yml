@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8110
 spring:
   application:
 #    @符号从pom文件读取白娘
@@ -108,6 +108,8 @@ mybatis:
   configuration:
     default-enum-type-handler: com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler
 
+elasticsearch:
+  hostlist: ${eshostlist:127.0.0.1:9200}
 
 
 

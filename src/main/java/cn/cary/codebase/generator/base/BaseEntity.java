@@ -26,16 +26,16 @@ public class BaseEntity implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
-    private Date createDate;
+    private Date createTime;
 
     @ApiModelProperty(value = "修改人")
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private String lastUpdateBy;
+    private String updateBy;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "修改时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date lastUpdateDate;
+    private Date updateTime;
 
     @ApiModelProperty(value = "删除标志")
     @TableLogic

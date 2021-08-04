@@ -46,10 +46,16 @@ public class MapDemo {
         log.info(products.toString());
     }
 
+    private static void listToMap() {
+        log.info("根据某几个属性重新构建新的对象list");
+        Map<Long,Long> products = prodList.stream().collect(Collectors.toMap(Product::getId,Product::getId));
+        log.info(products.toString());
+    }
 
     public static void main(String[] args) {
         mapToList();
         mapToNewObjectList();
+        listToMap();
     }
 
 }
