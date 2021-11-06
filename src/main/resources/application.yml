@@ -1,6 +1,11 @@
 server:
   port: 8110
 spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:8000
+
   application:
 #    @符号从pom文件读取白娘
     name: @artifactId@
@@ -89,6 +94,25 @@ spring:
           # 密码
           login-password: admin123
 
+  kafka:
+    bootstrap-servers: 8.135.25.69:9092
+    consumer:
+      properties:
+        sasl.mechanism: SCRAM-SHA-512
+        sasl.jaas.config: 'org.apache.kafka.common.security.scram.ScramLoginModule required username="admin" password="admin";'
+        security.protocol: SASL_PLAINTEXT
+    listener:
+      concurrency: 3
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+
 logging:
   file:
     name: logs/${spring.application.name}/debug.log
@@ -110,7 +134,6 @@ mybatis:
 
 elasticsearch:
   hostlist: ${eshostlist:127.0.0.1:9200}
-
 
 
 

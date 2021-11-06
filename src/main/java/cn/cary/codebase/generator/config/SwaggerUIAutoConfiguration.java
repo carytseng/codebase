@@ -55,7 +55,7 @@ public class SwaggerUIAutoConfiguration {
 
     //扫描包含swagger注解的实例
     private Predicate<RequestHandler> selectorApis() {
-        return Predicates.or(Arrays.asList(RequestHandlerSelectors.basePackage("cn.cary.codebase.generator.sys.controller")
+        return Predicates.or(Arrays.asList(RequestHandlerSelectors.basePackage("cn.cary.codebase")
                 , RequestHandlerSelectors.basePackage("cn.cary.codebase.generator.sys.entity")));
     }
 
