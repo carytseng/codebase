@@ -31,14 +31,14 @@ public class MapDemo {
 
     private static void mapToList() {
         log.info("根据某个属性重新构建新的list");
-        List<String> products = prodList.stream().map(p -> p.getName()).collect(Collectors.toList());
+        List<String> products = prodList.stream().map(Product::getName).collect(Collectors.toList());
         log.info(products.toString());
     }
 
     private static void mapToNewObjectList() {
         log.info("根据某几个属性重新构建新的对象list");
         List<Map> products = prodList.stream().map(p -> {
-            Map obj = new HashMap<>();
+            Map<Object, Object> obj = new HashMap<>();
             obj.put("oName", p.getName());
             obj.put("oCatagory", p.getCategory());
             return obj;

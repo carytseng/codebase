@@ -1,0 +1,20 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: codebase
+  name: codebase
+spec:
+  replicas: 1   #三个副本
+  selector:
+    matchLabels:
+      app: codebase
+  template:
+    metadata:
+      labels:
+        app: codebase
+    spec:
+      containers:
+      - image: codebase
+        name: codebase-demo

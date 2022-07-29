@@ -40,6 +40,7 @@ public class LogAspect {
     @Pointcut("execution(public * cn.cary.codebase..controller..*.*(..))")
     public void pointcut() {
     }
+//    @Around("@annotation(com.chinaunicom.medical.business.ums.annotation.UmsGateWayContext)||@within(com.chinaunicom.medical.business.ums.annotation.UmsGateWayContext)")
 
 
     @Around("pointcut()")

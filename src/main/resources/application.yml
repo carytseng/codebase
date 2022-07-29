@@ -1,5 +1,5 @@
 server:
-  port: 8110
+  port: ${SERVER_PORT:8110}
 spring:
   boot:
     admin:
@@ -116,7 +116,8 @@ management:
 logging:
   file:
     name: logs/${spring.application.name}/debug.log
-
+  level:
+    root: info
 opencloud:
   swagger2:
     enabled: true
