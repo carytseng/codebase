@@ -15,7 +15,7 @@
     <description>cary's codebase for quick dev</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <logback.version>1.2.3</logback.version>
         <slf4j.version>1.7.22</slf4j.version>
         <springfox.version>2.9.2</springfox.version>
@@ -80,18 +80,11 @@
             <version>1.5.22</version>
         </dependency>
         <!-- swagger2 end -->
-
-        <!--jsr 303 参数校验start-->
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>1.1.0.Final</version>
-        </dependency>
         <!-- hibernate validator-->
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.2.0.Final</version>
+            <version>6.2.5.Final</version> <!-- 支持 Java 17 -->
         </dependency>
         <!--jsr 303 参数校验end-->
         <!-- 必备工具 start -->
@@ -338,7 +331,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>cn.cary.codebase.CodebaseApplication</mainClass>
+                    <mainClass>cn.oj.codebase.CodebaseApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

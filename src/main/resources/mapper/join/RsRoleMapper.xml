@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.cary.codebase.join.mapper.RsRoleMapper">
+<mapper namespace="cn.oj.codebase.join.mapper.RsRoleMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.cary.codebase.join.entity.RsRole">
+    <resultMap id="BaseResultMap" type="cn.oj.codebase.join.entity.RsRole">
         <result column="id" property="id" />
         <result column="role_name" property="roleName" />
         <result column="remark" property="remark" />
@@ -33,12 +33,12 @@
             r.id = ur.role_id
           AND u.id = ur.menu_id
     </select>
-    <resultMap type="cn.cary.codebase.join.entity.RsRole" id="baseMap">
+    <resultMap type="cn.oj.codebase.join.entity.RsRole" id="baseMap">
         <id property="id" column="role_id"/>
         <result column="role_name" property="roleName" />
         <result column="remark" property="remark" />
         <result column="pid" property="pid" />
-        <collection property="rsMenus" ofType="cn.cary.codebase.join.entity.RsMenu">
+        <collection property="rsMenus" ofType="cn.oj.codebase.join.entity.RsMenu">
             <id property="id" column="menu_id"/>
             <result column="parent_id" property="parentId" />
             <result column="menu_name" property="menuName" />

@@ -126,7 +126,7 @@ opencloud:
 
 mybatis-plus:
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: cn.cary.codebase.generator.dto,cn.cary.codebase.**.entity
+  typeAliasesPackage: cn.oj.codebase.generator.dto,cn.cary.codebase.**.entity
   mapper-locations: classpath*:mapper/**/*.xml
 
 mybatis:
