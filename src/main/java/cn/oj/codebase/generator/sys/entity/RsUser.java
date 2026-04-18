@@ -1,8 +1,7 @@
 package cn.oj.codebase.generator.sys.entity;
 
 import cn.oj.codebase.generator.base.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,29 +15,29 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value="RsUser对象", description="用户信息表（用于测试）")
+@Schema(name="RsUser", description="用户信息表（用于测试）")
 public class RsUser extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "用户名")
+    @Schema(description = "用户名")
     private String username;
 
-    @ApiModelProperty(value = "真实姓名")
+    @Schema(description = "真实姓名")
     private String actualName;
 
     private String password;
 
-    @ApiModelProperty(value = "性别1:男。2:女")
+    @Schema(description = "性别1:男。2:女")
     private Integer gender;
 
-    @ApiModelProperty(value = "联系电话")
+    @Schema(description = "联系电话")
     private String contactNumber;
 
-    @ApiModelProperty(value = "头像地址")
+    @Schema(description = "头像地址")
     private String pictureUrl;
 
-    @ApiModelProperty(value = "邮箱地址")
+    @Schema(description = "邮箱地址")
     private String email;
 
 

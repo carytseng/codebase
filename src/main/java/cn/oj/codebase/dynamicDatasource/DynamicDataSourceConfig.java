@@ -42,19 +42,27 @@ public class DynamicDataSourceConfig {
         Map<Object, Object> dataSourceMap = new HashMap<>(5);
         Optional.ofNullable(datasource).ifPresent(map -> {
             for (Map.Entry<String, Properties> entry : map.entrySet()) {
+                String dataSourceId = entry.getKey();
+                if (!isSupportedDataSource(dataSourceId)) {
+                    log.debug("skip non-datasource druid config: {}", dataSourceId);
+                    return;
+                }
                 //创建数据源对象
                 DruidDataSource dataSource = null;
                 try {
                     dataSource = configureDataSource(entry);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    log.error("failed to create datasource: {}", dataSourceId, e);
+                    return;
                 }
-                String dataSourceId = entry.getKey();
                 /*bean工厂注册每个数据源bean*/
-                listableBeanFactory.registerSingleton(DataSourceType.getName(dataSourceId), dataSource);
-                dataSourceMap.put(DataSourceType.getName(dataSourceId), dataSource);
+                registerDataSource(listableBeanFactory, dataSourceMap, dataSourceId, dataSource);
             }
         });
+        if (!dataSourceMap.containsKey(DataSourceType.MASTER.name())) {
+            DruidDataSource masterDataSource = buildMasterDataSource();
+            registerDataSource(listableBeanFactory, dataSourceMap, DataSourceType.MASTER.getCode(), masterDataSource);
+        }
         //AbstractRoutingDataSource设置主从数据源
         return new DynamicDataSourceRouting(beanFactory.getBean(DataSourceType.MASTER.name(), DataSource.class), dataSourceMap);
     }
@@ -73,5 +81,30 @@ public class DynamicDataSourceConfig {
     private DruidDataSource configureDataSource(Map.Entry<String, Properties> entry) throws Exception {
         Properties value = entry.getValue();
         return (DruidDataSource) DruidDataSourceFactory.createDataSource(value);
+    }
+
+    private void registerDataSource(DefaultListableBeanFactory beanFactory, Map<Object, Object> dataSourceMap,
+                                    String dataSourceId, DruidDataSource dataSource) {
+        String beanName = DataSourceType.getName(dataSourceId);
+        beanFactory.registerSingleton(beanName, dataSource);
+        dataSourceMap.put(beanName, dataSource);
+    }
+
+    private boolean isSupportedDataSource(String dataSourceId) {
+        for (DataSourceType type : DataSourceType.values()) {
+            if (type.getCode().equals(dataSourceId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private DruidDataSource buildMasterDataSource() {
+        DruidDataSource dataSource = new DruidDataSource();
+        dataSource.setUrl(dynamicDataSourceProperty.getUrl());
+        dataSource.setUsername(dynamicDataSourceProperty.getUsername());
+        dataSource.setPassword(dynamicDataSourceProperty.getPassword());
+        dataSource.setDriverClassName(dynamicDataSourceProperty.getDriverClassName());
+        return dataSource;
     }
 }

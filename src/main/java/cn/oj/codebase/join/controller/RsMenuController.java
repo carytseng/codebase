@@ -4,7 +4,6 @@ package cn.oj.codebase.join.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
-import com.baomidou.mybatisplus.extension.api.ApiController;
 
 /**
  * <p>
@@ -16,6 +15,6 @@ import com.baomidou.mybatisplus.extension.api.ApiController;
  */
 @RestController
 @RequestMapping("/join/rs-menu")
-public class RsMenuController extends ApiController {
+public class RsMenuController {
 
 }

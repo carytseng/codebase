@@ -1,14 +1,15 @@
 package cn.oj.codebase.generator.sys.advice;
 
 import cn.oj.codebase.generator.sys.exception.GlobalException;
-import com.baomidou.mybatisplus.extension.api.R;
-import com.baomidou.mybatisplus.extension.enums.ApiErrorCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author 郑剑锋
@@ -18,20 +19,28 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @createTime 2021年08月04日 10:27:00
  */
 @RestControllerAdvice(annotations = {RestController.class, Controller.class})
-public class GlobalExceptionHandler<T> {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(GlobalException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public R sendErrorResponse(Exception exception) {
-        return R.failed(exception.getMessage());
+    public Map<String, Object> sendErrorResponse(Exception exception) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 500);
+        result.put("msg", exception.getMessage());
+        result.put("data", null);
+        return result;
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public R sendErrorResponseSystem(Exception exception) {
+    public Map<String, Object> sendErrorResponseSystem(Exception exception) {
         if (exception instanceof GlobalException) {
             return this.sendErrorResponse(exception);
         }
-        return R.failed(ApiErrorCode.FAILED);
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 500);
+        result.put("msg", "System error");
+        result.put("data", null);
+        return result;
     }
 }

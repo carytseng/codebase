@@ -17,6 +17,11 @@ import java.util.Properties;
 @Component
 @ConfigurationProperties(prefix = "spring.datasource")
 public class DynamicDataSourceProperty {
+    private String url;
+    private String username;
+    private String password;
+    private String driverClassName;
+
     //只映射druid
     private Map<String, Properties> druid;
 }

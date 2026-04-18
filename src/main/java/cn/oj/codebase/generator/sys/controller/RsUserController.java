@@ -4,19 +4,20 @@ package cn.oj.codebase.generator.sys.controller;
 import cn.oj.codebase.generator.dto.RsUserDTO;
 import cn.oj.codebase.generator.sys.entity.RsUser;
 import cn.oj.codebase.generator.sys.service.IRsUserService;
-import com.baomidou.mybatisplus.extension.api.R;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import com.baomidou.mybatisplus.extension.api.ApiController;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -31,39 +32,59 @@ import javax.validation.constraints.NotNull;
 @Validated //验证非object对象需要
 @RestController
 @RequestMapping("/sys/rsUser")
-@Api(tags = {"用户信息"})
-public class RsUserController extends ApiController {
+@Tag(name = "用户信息")
+public class RsUserController {
 
     @Autowired
     private IRsUserService iRsUserService;
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "查询")
-    @ApiImplicitParam(name = "id", value = "唯一标识", required = true, paramType = "path", dataType = "Long")
-    public R<RsUser> get(@PathVariable("id") @NotNull(message = "id不能为空") Long id) {
-        return R.ok(iRsUserService.getById(id));
+    @Operation(summary = "查询")
+    @Parameter(name = "id", description = "唯一标识", required = true)
+    public Map<String, Object> get(@PathVariable("id") @NotNull(message = "id不能为空") Long id) {
+        RsUser user = iRsUserService.getById(id);
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 0);
+        result.put("data", user);
+        result.put("msg", "success");
+        return result;
     }
 
     @PostMapping("/insert")
-    @ApiOperation(value = "新增")
-    public R<Boolean> insert(@Valid RsUserDTO rsUserDTO) {
+    @Operation(summary = "新增")
+    public Map<String, Object> insert(@Valid RsUserDTO rsUserDTO) {
         RsUser rsUser = new RsUser();
         BeanUtils.copyProperties(rsUserDTO, rsUser);
-        return R.ok(iRsUserService.save(rsUser));
+        boolean success = iRsUserService.save(rsUser);
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 0);
+        result.put("data", success);
+        result.put("msg", success ? "success" : "failed");
+        return result;
     }
 
     @PutMapping("/update")
-    @ApiOperation(value = "更新")
-    public R<Boolean> update(@Valid RsUserDTO rsUserDTO) {
+    @Operation(summary = "更新")
+    public Map<String, Object> update(@Valid RsUserDTO rsUserDTO) {
         RsUser rsUser = new RsUser();
         BeanUtils.copyProperties(rsUserDTO, rsUser);
-        return R.ok(iRsUserService.updateById(rsUser));
+        boolean success = iRsUserService.updateById(rsUser);
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 0);
+        result.put("data", success);
+        result.put("msg", success ? "success" : "failed");
+        return result;
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "删除")
-    @ApiImplicitParam(name = "id", value = "唯一标识", required = true, paramType = "path", dataType = "Long")
-    public R<Boolean> delete(@PathVariable @NotNull(message = "id不能为空") Long id) {
-        return R.ok(iRsUserService.removeById(id));
+    @Operation(summary = "删除")
+    @Parameter(name = "id", description = "唯一标识", required = true)
+    public Map<String, Object> delete(@PathVariable @NotNull(message = "id不能为空") Long id) {
+        boolean success = iRsUserService.removeById(id);
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 0);
+        result.put("data", success);
+        result.put("msg", success ? "success" : "failed");
+        return result;
     }
 }

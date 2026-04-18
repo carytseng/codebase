@@ -1,6 +1,6 @@
 package cn.oj.codebase.validator;
 
-import javax.validation.Constraint;
+import jakarta.validation.Constraint;
 import java.lang.annotation.*;
 
 /**

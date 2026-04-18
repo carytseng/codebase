@@ -1,7 +1,7 @@
 package cn.oj.codebase.join.entity;
 
 import cn.oj.codebase.generator.base.BaseEntity;
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value="RsRoleMenu对象", description="角色菜单关联表")
+@Schema(name="RsRoleMenu", description="角色菜单关联表")
 public class RsRoleMenu extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

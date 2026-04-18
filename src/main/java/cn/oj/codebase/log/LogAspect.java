@@ -5,7 +5,7 @@ import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -18,8 +18,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
@@ -73,16 +73,16 @@ public class LogAspect {
 
     /**
      * 获取Controller的方法名
-     * 可以使用我们自定义的@ControllerMethodTitle。若使用了swagger，就优先使用swagger的@ApiOperation的value
+     * 可以使用我们自定义的@ControllerMethodTitle。若使用了swagger，就优先使用swagger的@Operation的summary
      */
     private String getControllerMethodTitle(ProceedingJoinPoint joinPoint) {
         Method[] methods = joinPoint.getSignature().getDeclaringType().getMethods();
         for (Method method : methods) {
             if (StringUtils.equalsIgnoreCase(method.getName(), joinPoint.getSignature().getName())) {
-                ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
+                io.swagger.v3.oas.annotations.Operation operation = method.getAnnotation(io.swagger.v3.oas.annotations.Operation.class);
                 ControllerMethodTitle controllerMethodTitle = method.getAnnotation(ControllerMethodTitle.class);
-                if (ObjectUtils.isNotEmpty(apiOperation) && StrUtil.isNotBlank(apiOperation.value())) {
-                    return apiOperation.value();
+                if (ObjectUtils.isNotEmpty(operation) && StrUtil.isNotBlank(operation.summary())) {
+                    return operation.summary();
                 }
                 if (ObjectUtils.isNotEmpty(controllerMethodTitle)) {
                     return controllerMethodTitle.value();
