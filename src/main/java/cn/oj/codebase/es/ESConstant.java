@@ -1,36 +1,41 @@
 package cn.oj.codebase.es;
 
-import org.elasticsearch.client.RequestOptions;
-
+/**
+ * @program: codebase
+ * @description: Elasticsearch 常量定义
+ * @author: 郑剑锋
+ **/
 public class ESConstant {
 
     private ESConstant() {
         throw new IllegalStateException("Utility class");
     }
 
-    //就诊次数查询默认最大值
-    public static final int VISIT_INNIT_SIZE = 100;
-    //单次就诊多次记录查询默认最大值
-    public static final int TIMES_INNIT_SIZE = 100;
+    /**
+     * 默认索引名
+     */
+    public static final String DEFAULT_INDEX = "product_index";
 
-    public static final  String ES_TYPE           = "_doc";
-    public static final String PATIENT_DIMENSION = "patient_dimension";
-    public static final  String VISIT_DIMENSION   = "visit_dimension";
-    public static final  String VISIT_FLAG        = "visit_flag";
+    /**
+     * 分页查询默认值
+     */
+    public static final int DEFAULT_PAGE_SIZE = 10;
+    public static final int MAX_PAGE_SIZE = 100;
 
-    public static final String TEXT_ALL         = "Text_All";
-    public static final String PATIENT_TEXT_ALL = PATIENT_DIMENSION + "." + TEXT_ALL;
-    public static final String VISIT_TEXT_ALL   = VISIT_DIMENSION + "." + TEXT_ALL;
+    /**
+     * 字段名常量
+     */
+    public static final String FIELD_ID = "id";
+    public static final String FIELD_NAME = "name";
+    public static final String FIELD_CATEGORY = "category";
+    public static final String FIELD_PRICE = "price";
+    public static final String FIELD_STOCK = "stock";
+    public static final String FIELD_DESCRIPTION = "description";
+    public static final String FIELD_CREATE_TIME = "create_time";
 
-    private static final String KEYWORD = "keyword";
-
-    public static final String SUFFIX_KEYWORD = "." + KEYWORD;
-
-    public static final String PAT_EMPI_INFO = "pat_emp_info";
-
-    public static final RequestOptions REQUEST_OPTIONS = RequestOptions.DEFAULT;
-
-    public static final String ANALYZER = "ik_max_word";
-
+    /**
+     * IK 分词器
+     */
+    public static final String ANALYZER_IK = "ik_max_word";
 
 }

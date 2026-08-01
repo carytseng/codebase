@@ -67,10 +67,14 @@ mybatis:
 
 elasticsearch:
   hostlist: ${eshostlist:127.0.0.1:9200}
+  # 新版 Elasticsearch Java API Client 配置由 ESConfig 自动处理
 
-
-
-
-
-
-
+# Sa-Token SSO 配置
+sa-token:
+  sso:
+    # SSO Server 端地址
+    auth-url: http://127.0.0.1:9000/sso/auth
+    # 配置 Sa-Token 单独使用的Redis连接
+    # token: http://127.0.0.1:9000/sso/token
+    # is-slo: true
+    is-http: true
