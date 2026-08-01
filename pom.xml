@@ -149,10 +149,17 @@
         <!-- junit end -->
 
         <!-- connect Elasticsearch -->
+        <!-- Spring Boot 3.4.0 已内置新版 Elasticsearch Java API Client，无需额外添加 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <!-- 注意：spring-boot-starter-data-elasticsearch 可能引入旧版 RestHighLevelClient，
+             如果不需要 Spring Data Elasticsearch，可以移除或排除旧依赖 -->
 
         <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <dependency>
